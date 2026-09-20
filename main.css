@@ -6,58 +6,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
 
 :root {
-  /* Color Palette - Emergency & Clinical */
-  --color-critical-red: #EF4444;
-  --color-critical-red-dark: #B91C1C;
-  --color-critical-glow: rgba(239, 68, 68, 0.4);
-  --color-critical-bg: #FEF2F2;
-  --color-critical-border: #FCA5A5;
+  /* Color Palette - Warm Emergency & Clinical */
+  --color-critical-red: #F43F5E;
+  --color-critical-red-dark: #E11D48;
+  --color-critical-glow: rgba(244, 63, 94, 0.35);
+  --color-critical-bg: #FFF1F2;
+  --color-critical-border: #FECDD3;
 
-  --color-urgent-amber: #F59E0B;
-  --color-urgent-amber-dark: #B45309;
-  --color-urgent-glow: rgba(245, 158, 11, 0.35);
-  --color-urgent-bg: #FFFBEB;
-  --color-urgent-border: #FCD34D;
+  --color-urgent-amber: #FB923C;
+  --color-urgent-amber-dark: #EA580C;
+  --color-urgent-glow: rgba(251, 146, 60, 0.3);
+  --color-urgent-bg: #FFF7ED;
+  --color-urgent-border: #FFEDD5;
 
-  --color-moderate-yellow: #EAB308;
+  --color-moderate-yellow: #FACC15;
   --color-moderate-bg: #FEFCE8;
-  --color-moderate-border: #FDE047;
+  --color-moderate-border: #FEF08A;
 
-  --color-routine-green: #10B981;
-  --color-routine-green-dark: #047857;
-  --color-routine-glow: rgba(16, 185, 129, 0.35);
-  --color-routine-bg: #ECFDF5;
-  --color-routine-border: #A7F3D0;
+  --color-routine-green: #34D399;
+  --color-routine-green-dark: #059669;
+  --color-routine-glow: rgba(52, 211, 153, 0.3);
+  --color-routine-bg: #F0FDF4;
+  --color-routine-border: #BBF7D0;
 
-  --color-medical-blue: #2563EB;
-  --color-medical-blue-dark: #1D4ED8;
-  --color-medical-blue-light: #EFF6FF;
-  --color-medical-blue-glow: rgba(37, 99, 235, 0.35);
+  --color-medical-blue: #38BDF8;
+  --color-medical-blue-dark: #0284C7;
+  --color-medical-blue-light: #F0F9FF;
+  --color-medical-blue-glow: rgba(56, 189, 248, 0.3);
 
-  --color-blood-crimson: #DC2626;
-  --color-pharmacy-teal: #0D9488;
+  --color-blood-crimson: #E11D48;
+  --color-pharmacy-teal: #14B8A6;
 
-  /* Theme: Dark Mode (Default for Emergency Low-Glare / Night Distress) */
-  --bg-app: #0B1120;
-  --bg-surface: #131E36;
-  --bg-surface-elevated: #1E293B;
-  --bg-surface-hover: #27354F;
-  --bg-glass: rgba(19, 30, 54, 0.75);
-  --bg-glass-card: rgba(30, 41, 59, 0.65);
+  /* Theme: Warm Dark Mode (Softer, less depressing night distress) */
+  --bg-app: #12161F;
+  --bg-surface: #1B2230;
+  --bg-surface-elevated: #252D3E;
+  --bg-surface-hover: #303A4E;
+  --bg-glass: rgba(27, 34, 48, 0.78);
+  --bg-glass-card: rgba(37, 45, 62, 0.7);
   --border-glass: rgba(255, 255, 255, 0.08);
-  --border-glass-strong: rgba(255, 255, 255, 0.16);
+  --border-glass-strong: rgba(255, 255, 255, 0.15);
 
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-inverse: #0F172A;
+  --text-primary: #FDFEFE;
+  --text-secondary: #A0AEC0;
+  --text-muted: #718096;
+  --text-inverse: #12161F;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
-  --shadow-glow-red: 0 0 24px rgba(239, 68, 68, 0.5);
-  --shadow-glow-blue: 0 0 24px rgba(37, 99, 235, 0.4);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --shadow-glow-red: 0 0 24px rgba(244, 63, 94, 0.4);
+  --shadow-glow-blue: 0 0 24px rgba(56, 189, 248, 0.3);
 
   /* Typography */
   --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -80,24 +80,24 @@
 
 /* Light Theme Support */
 [data-theme="light"] {
-  --bg-app: #F8FAFC;
+  --bg-app: #FDFCF7;
   --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #F1F5F9;
-  --bg-surface-hover: #E2E8F0;
-  --bg-glass: rgba(255, 255, 255, 0.85);
-  --bg-glass-card: rgba(255, 255, 255, 0.9);
-  --border-glass: rgba(15, 23, 42, 0.08);
-  --border-glass-strong: rgba(15, 23, 42, 0.15);
+  --bg-surface-elevated: #F7F5EC;
+  --bg-surface-hover: #EEEADE;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  --bg-glass-card: rgba(255, 255, 255, 0.92);
+  --border-glass: rgba(28, 25, 23, 0.08);
+  --border-glass-strong: rgba(28, 25, 23, 0.15);
 
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
+  --text-primary: #1C1917;
+  --text-secondary: #57534E;
+  --text-muted: #A8A29E;
   --text-inverse: #FFFFFF;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 2px 0 rgba(28, 25, 23, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(28, 25, 23, 0.06), 0 2px 4px -2px rgba(28, 25, 23, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(28, 25, 23, 0.08), 0 4px 6px -4px rgba(28, 25, 23, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(28, 25, 23, 0.1), 0 8px 10px -6px rgba(28, 25, 23, 0.04);
 }
 
 /* Base Reset & Accessibility */
@@ -125,7 +125,7 @@ body {
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-/* Subtle background glowing grid pattern */
+/* Subtle background glowing grid pattern - warmer hues */
 body::before {
   content: '';
   position: fixed;
@@ -134,9 +134,9 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(239, 68, 68, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 85% 20%, rgba(37, 99, 235, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
+    radial-gradient(circle at 15% 15%, rgba(244, 63, 94, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(52, 211, 153, 0.04) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -182,7 +182,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Top Emergency Announcement Bar */
 .top-disclaimer-bar {
-  background: linear-gradient(90deg, #991B1B 0%, #B91C1C 50%, #991B1B 100%);
+  background: linear-gradient(90deg, #BE123C 0%, #E11D48 50%, #BE123C 100%);
   color: #FFFFFF;
   padding: 8px 16px;
   font-size: 0.85rem;
@@ -247,7 +247,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -275,8 +275,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #38BDF8;
-  background: rgba(56, 189, 248, 0.14);
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   margin-bottom: 2px;
@@ -292,7 +292,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand-text h1 span {
-  background: linear-gradient(135deg, #EF4444 0%, #3B82F6 100%);
+  background: linear-gradient(135deg, #F43F5E 0%, #38BDF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -380,15 +380,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hotline-chip.ambulance {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%);
   color: #FFFFFF;
-  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 2px 10px rgba(244, 63, 94, 0.35);
 }
 
 .hotline-chip.all-emergency {
-  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
   color: #FFFFFF;
-  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3);
 }
 
 .hotline-chip:hover {
@@ -404,7 +404,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 10;
 }
 
-/* App Grid: Left Column (Triage, Search, Filters, Facilities List) | Right Column (Interactive Map & Routing) */
+/* App Grid */
 .main-content-layout {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
