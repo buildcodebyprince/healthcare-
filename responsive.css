@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Emergency Healthcare Navigator - Responsive Design (responsive.css)
+   Optimized for high-stress mobile caregivers, single-hand thumb navigation
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+  .app-container {
+    padding: 16px;
+  }
+
+  .main-content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .map-sticky-wrapper {
+    position: relative;
+    top: 0;
+    height: 460px;
+    min-height: 400px;
+    margin-top: 24px;
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .top-disclaimer-bar {
+    font-size: 0.78rem;
+    padding: 6px 12px;
+  }
+
+  .app-header {
+    padding: 0 16px;
+  }
+
+  .brand-text h1 {
+    font-size: 1.1rem;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .header-hotlines .hotline-chip span {
+    display: none; /* Show icon and number only on mobile */
+  }
+
+  .search-bar-wrapper {
+    padding: 4px 6px 4px 14px;
+  }
+
+  .search-input {
+    font-size: 0.95rem;
+  }
+
+  .facility-card {
+    padding: 16px;
+  }
+
+  .facility-actions-bar {
+    grid-template-columns: 1fr 1fr 44px;
+  }
+
+  .btn-facility-call, .btn-facility-route {
+    padding: 12px 10px;
+    font-size: 0.82rem;
+  }
+
+  .sos-quick-dial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .floating-sos-trigger {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .btn-floating-sos {
+    width: 62px;
+    height: 62px;
+    font-size: 0.88rem;
+  }
+
+  .modal-card {
+    max-height: 95vh;
+  }
+
+  .map-sticky-wrapper {
+    height: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .triage-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .triage-actions-quick {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .triage-callout-action {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .btn-dial-now {
+    justify-content: center;
+  }
+
+  .blood-stock-mini-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .facility-actions-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-facility-share {
+    display: none;
+  }
+}

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Emergency Healthcare Navigator - Instant bilingual (Hindi + English) emergency hospital, trauma center, blood bank, and 24x7 pharmacy discovery with urgency triage and live routing.">
+  <meta name="keywords" content="Emergency Hospital, Ambulance 108, Blood Bank, 24x7 Pharmacy, Triage, CPR, Hindi Healthcare, Delhi NCR Hospitals">
+  <meta name="theme-color" content="#B91C1C">
+  
+  <title>StackShift Emergency Healthcare Navigator | स्टैकशिफ्ट आपातकालीन स्वास्थ्य सहायक</title>
+
+  <!-- Google Fonts: Outfit, Inter, Noto Sans Devanagari -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS for Interactive Emergency Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Emergency Safety Disclaimer Bar -->
+  <aside class="top-disclaimer-bar" role="alert">
+    <span class="badge-live">
+      <span class="pulse-dot"></span>
+      <span data-i18n="liveStatus">Live Emergency Network Active</span>
+    </span>
+    <span data-i18n="disclaimerBanner">
+      ⚠️ Non-Diagnostic Assistant: For life-threatening emergencies, call 108 or 112 immediately.
+    </span>
+  </aside>
+
+  <!-- Application Header -->
+  <header class="app-header glass-panel">
+    <div class="brand-container">
+      <div class="brand-logo-badge" aria-hidden="true">
+        <!-- Caduceus / Medical Cross SVG -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M2 12h20"/>
+          <circle cx="12" cy="12" r="9" stroke-width="1.8" stroke-dasharray="2 2"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="org-name-pill">STACKSHIFT HEALTHCARE</div>
+        <h1>
+          <span data-i18n="appTitle">StackShift Emergency Navigator</span>
+        </h1>
+        <div class="brand-subtitle" data-i18n="appSubtitle">Rapid Distress & Hospital Finder • By StackShift</div>
+      </div>
+    </div>
+
+    <!-- National Helplines & Header Controls -->
+    <div class="header-controls">
+      <div class="header-hotlines">
+        <a href="tel:108" class="hotline-chip ambulance" id="header-call-108" title="Call Ambulance 108">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span data-i18n="callAmbulance">Call 108</span>
+        </a>
+        <a href="tel:112" class="hotline-chip all-emergency" id="header-call-112" title="Call All-in-One 112">
+          <span data-i18n="callEmergency">Call 112</span>
+        </a>
+      </div>
+
+      <!-- Bilingual Language Toggle -->
+      <button class="lang-toggle-btn" id="lang-toggle-btn" title="Toggle English / हिन्दी">
+        <span class="lang-pill lang-pill-en active">EN</span>
+        <span>/</span>
+        <span class="lang-pill lang-pill-hi">हिन्दी</span>
+      </button>
+
+      <!-- Dark / Light Theme Toggle -->
+      <button class="theme-toggle-btn" id="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-container">
+
+    <!-- Urgency Triage Guidance Banner (Evaluated dynamically) -->
+    <section class="urgency-triage-container" id="urgency-triage-container" aria-live="polite">
+      <!-- Triage card rendered dynamically via triage.js -->
+    </section>
+
+    <!-- Search and Voice Assistant Section -->
+    <section class="search-section">
+      <div class="search-bar-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+
+        <input 
+          type="text" 
+          id="emergency-search-input" 
+          class="search-input" 
+          placeholder="Describe symptom (e.g. chest pain, baby fever, blood needed)..."
+          data-i18n-placeholder="searchPlaceholder"
+          autocomplete="off"
+        />
+
+        <button class="clear-search-btn" id="clear-search-btn" title="Clear Search" aria-label="Clear Search">
+          ✕
+        </button>
+
+        <div class="search-controls">
+          <button class="voice-mic-btn" id="voice-mic-btn" data-i18n-title="voiceBtnTitle" title="Click to speak in English or Hindi" aria-label="Voice Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Listening Waveform Feedback Popup -->
+        <div class="voice-feedback-overlay" id="voice-feedback-overlay">
+          <div class="voice-wave-container">
+            <div class="voice-wave-bar"></div>
+            <div class="voice-wave-bar"></div>
+            <div class="voice-wave-bar"></div>
+            <div class="voice-wave-bar"></div>
+            <div class="voice-wave-bar"></div>
+            <div class="voice-wave-bar"></div>
+          </div>
+          <div class="voice-status-text" id="voice-status-text" data-i18n="listeningVoice">
+            Listening... Speak your symptom in English or Hindi
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Preset Symptom Tags -->
+      <div class="quick-symptom-tags">
+        <button class="symptom-tag" onclick="selectPresetSymptom('Chest Pain / Heart', 'सीने में दर्द / दिल का दौरा')">
+          🫀 <span data-i18n-en="Chest Pain" data-i18n-hi="सीने में दर्द">Chest Pain</span>
+        </button>
+        <button class="symptom-tag" onclick="selectPresetSymptom('Baby High Fever', 'बच्चे को तेज बुखार')">
+          👶 <span data-i18n-en="Baby High Fever" data-i18n-hi="बच्चे को बुखार">Baby High Fever</span>
+        </button>
+        <button class="symptom-tag" onclick="selectPresetSymptom('Accident / Bleeding', 'दुर्घटना / खून बह रहा है')">
+          🩸 <span data-i18n-en="Accident / Trauma" data-i18n-hi="दुर्घटना / ट्रॉमा">Accident / Trauma</span>
+        </button>
+        <button class="symptom-tag" onclick="selectPresetSymptom('Need O Negative Blood', 'O- ब्लड चाहिए')">
+          🩸 <span data-i18n-en="O- Blood Needed" data-i18n-hi="O- ब्लड चाहिए">O- Blood Needed</span>
+        </button>
+        <button class="symptom-tag" onclick="selectPresetSymptom('Oxygen Cylinder', 'ऑक्सीजन सिलेंडर')">
+          🫁 <span data-i18n-en="Medical Oxygen" data-i18n-hi="ऑक्सीजन सिलेंडर">Medical Oxygen</span>
+        </button>
+        <button class="symptom-tag" onclick="selectPresetSymptom('24x7 Chemist', '24 घंटे मेडिकल स्टोर')">
+          💊 <span data-i18n-en="24x7 Chemist" data-i18n-hi="24x7 मेडिकल स्टोर">24x7 Chemist</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Two-Column Main Layout: Left Resources & Filters | Right Map & Routing -->
+    <div class="main-content-layout">
+      
+      <!-- Left Column: Categories & Facility Cards -->
+      <section class="facilities-column">
+        
+        <!-- Category Filter Tabs -->
+        <div class="filter-tabs-section">
+          <div class="filter-pills-row">
+            <button class="filter-pill active" data-category="all" onclick="setFilterCategory('all')">
+              <span data-i18n="allFacilities">All Resources</span>
+            </button>
+            <button class="filter-pill trauma" data-category="trauma" onclick="setFilterCategory('trauma')">
+              <span data-i18n="traumaEmergency">🚨 Trauma & ER</span>
+            </button>
+            <button class="filter-pill" data-category="cardiac" onclick="setFilterCategory('cardiac')">
+              <span data-i18n="cardiacCare">🫀 Cardiac & Stroke</span>
+            </button>
+            <button class="filter-pill" data-category="pediatric" onclick="setFilterCategory('pediatric')">
+              <span data-i18n="pediatricEr">👶 Pediatric ER</span>
+            </button>
+            <button class="filter-pill blood" data-category="bloodbank" onclick="setFilterCategory('bloodbank')">
+              <span data-i18n="bloodBanks">🩸 Blood Banks</span>
+            </button>
+            <button class="filter-pill pharmacy" data-category="pharmacy" onclick="setFilterCategory('pharmacy')">
+              <span data-i18n="pharmacies247">💊 24x7 Pharmacies</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Facilities Header Info -->
+        <div class="facilities-header-row">
+          <div class="facilities-count-label" id="facilities-count-indicator">
+            9 facilities found nearby
+          </div>
+          <button class="location-chip-selector" id="location-selector-btn" onclick="centerOnUserLocation()" title="Centered on Indore, MP">
+            <span class="pulse-dot" style="background:#10B981; width:8px; height:8px;"></span>
+            <span id="location-name-label">📍 Indore, MP</span>
+          </button>
+        </div>
+
+        <!-- Rendered Facilities List -->
+        <div class="facilities-list" id="facilities-list-container">
+          <!-- Dynamically populated by app.js -->
+        </div>
+
+      </section>
+
+      <!-- Right Column: Interactive Map & Route Preview -->
+      <section class="map-sticky-wrapper">
+        <div class="map-header-bar">
+          <div class="map-title-indicator">
+            <span class="pulse-dot" style="background:#EF4444;"></span>
+            <span data-i18n="emergencyMapTitle">Emergency Map & Real-Time Route</span>
+          </div>
+          <div class="map-controls-group">
+            <button class="btn-map-control" onclick="centerOnUserLocation()">
+              🎯 <span data-i18n="locateMe">Locate Me</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="emergency-map"></div>
+
+        <!-- Real-time Route Preview & Navigation Banner -->
+        <div class="map-route-preview" id="map-route-preview">
+          <div class="route-info-left">
+            <div class="route-dest-name" data-i18n="noRouteSelected">
+              Select any hospital or clinic to view turn-by-turn route.
+            </div>
+            <div class="route-meta">GPS-ready emergency routing active</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Non-Diagnostic Medical Safety Disclaimer Footer -->
+    <footer class="safety-disclaimer-footer">
+      <p>
+        <strong data-i18n="safetyDisclaimerTitle">Non-Diagnostic Medical Disclaimer</strong>: 
+        <span data-i18n="safetyDisclaimerText">
+          This Emergency Healthcare Navigator is strictly an informational navigation and first-aid triage utility. It does NOT diagnose medical conditions, prescribe medication, or replace the professional judgment of licensed medical personnel. In any life-threatening situation, immediately summon local emergency services (112 or 108).
+        </span>
+      </p>
+      <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-muted);">
+        StackShift Emergency Healthcare Network | 24x7 India Emergency Helpline: 112 | Ambulance: 108 | Pregnancy/Infant: 102 | National Health: 1075
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Floating Emergency SOS Trigger Button -->
+  <div class="floating-sos-trigger">
+    <div class="sos-trigger-tooltip">Tap for 112/108 & Family Alert</div>
+    <button class="btn-floating-sos" id="btn-open-sos-modal" onclick="openSosModal()" aria-label="Emergency SOS">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span>SOS</span>
+    </button>
+  </div>
+
+  <!-- SOS MODAL -->
+  <div class="modal-overlay" id="sos-modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="brand-logo-badge" style="width: 32px; height: 32px; border-radius: 50%;">
+            🚨
+          </div>
+          <div>
+            <h2 style="font-size: 1.15rem;" data-i18n="sosModalTitle">EMERGENCY SOS & DISPATCH</h2>
+            <div style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="sosModalSubtitle">
+              Instantly alert emergency responders and family caregivers
+            </div>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeSosModal()" aria-label="Close SOS Modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- 1. National Helplines Quick Dials -->
+        <h4 style="font-size: 0.88rem; margin-bottom: 10px; color: var(--text-secondary);" data-i18n="nationalHelplinesTitle">
+          National 24/7 Emergency Helplines
+        </h4>
+        <div class="sos-quick-dial-grid">
+          <a href="tel:108" class="sos-dial-card police-amb">
+            <div class="sos-dial-icon">🚑</div>
+            <div class="sos-dial-info">
+              <strong>108</strong>
+              <span data-i18n="callAmbulance">National Ambulance</span>
+            </div>
+          </a>
+
+          <a href="tel:112" class="sos-dial-card police-amb">
+            <div class="sos-dial-icon" style="background:#2563EB;">🚨</div>
+            <div class="sos-dial-info">
+              <strong>112</strong>
+              <span data-i18n="callEmergency">All-in-One Emergency</span>
+            </div>
+          </a>
+
+          <a href="tel:102" class="sos-dial-card">
+            <div class="sos-dial-icon" style="background:#EAB308; color:#000;">👶</div>
+            <div class="sos-dial-info">
+              <strong>102</strong>
+              <span data-i18n="callMaternal">Maternal & Child</span>
+            </div>
+          </a>
+
+          <a href="tel:1075" class="sos-dial-card">
+            <div class="sos-dial-icon" style="background:#10B981;">🏥</div>
+            <div class="sos-dial-info">
+              <strong>1075</strong>
+              <span data-i18n="callHealthHelpline">National Health</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 2. Family Caregiver Alert Dispatch -->
+        <div class="family-sos-box">
+          <div class="family-sos-header">
+            <h4 style="font-size: 0.88rem;" data-i18n="familyContactsTitle">Family Caregiver SOS Dispatch</h4>
+            <button class="first-aid-trigger-btn" onclick="addFamilyContact()" style="padding: 4px 10px; font-size: 0.75rem;" data-i18n="addContactBtn">
+              + Add Caregiver Contact
+            </button>
+          </div>
+
+          <div class="family-sos-list" id="family-contacts-list">
+            <!-- Rendered by sos.js -->
+          </div>
+
+          <button class="btn-dispatch-family-alert" onclick="dispatchFamilyAlert(currentUserLocation)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/>
+            </svg>
+            <span data-i18n="sendFamilyAlertBtn">Send Instant SOS via WhatsApp / SMS</span>
+          </button>
+        </div>
+
+        <!-- 3. Distress Locator Tools (Siren & Strobe) -->
+        <h4 style="font-size: 0.88rem; margin-bottom: 10px; color: var(--text-secondary);" data-i18n="sirenAlarmTitle">
+          Distress Locator Tools
+        </h4>
+        <div class="strobe-siren-controls">
+          <button class="btn-siren-toggle" id="btn-toggle-siren" onclick="toggleEmergencySiren()">
+            <span data-i18n="soundSiren">🚨 Loud Siren</span>
+          </button>
+          <button class="btn-strobe-toggle" id="btn-toggle-strobe" onclick="toggleScreenStrobe()">
+            <span data-i18n="strobeFlash">⚡ Screen Strobe</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIRST-AID PROTOCOLS MODAL -->
+  <div class="modal-overlay" id="firstaid-modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="brand-logo-badge" style="width: 32px; height: 32px; background: #10B981;">
+            🩹
+          </div>
+          <h2 style="font-size: 1.15rem;" data-i18n="firstAidModalTitle">Emergency First-Aid Protocols</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeFirstAidModal()" aria-label="Close First Aid Modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- 1. CPR Protocol & Live Metronome -->
+        <div class="cpr-box">
+          <h3 style="font-size: 1rem; color: #EF4444; margin-bottom: 6px;" data-i18n="cprTitle">
+            CPR (Cardiopulmonary Resuscitation)
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;" data-i18n="cprDesc">
+            Push hard and fast in the center of the chest to the beat of 100-120 BPM.
+          </p>
+
+          <div class="cpr-circle-beat" id="cpr-beat-circle">
+            110<br><span style="font-size:0.6rem;">BPM</span>
+          </div>
+
+          <button class="first-aid-trigger-btn" id="btn-cpr-metronome" onclick="toggleCprMetronome()" style="padding: 8px 16px; border-color: #EF4444; margin: 0 auto;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span data-i18n="startCprMetronome">Start CPR Rhythm Metronome</span>
+          </button>
+        </div>
+
+        <!-- 2. Stroke FAST Guide -->
+        <div style="margin-top: 18px; padding: 14px; background: var(--bg-surface-elevated); border-radius: var(--radius-md);">
+          <h4 style="font-size: 0.95rem; color: #F59E0B; margin-bottom: 4px;" data-i18n="fastStrokeTitle">
+            Stroke Test (F.A.S.T.)
+          </h4>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);" data-i18n="fastDesc">
+            Face drooping? Arm weakness? Speech slurred? Time to call 108 immediately!
+          </p>
+        </div>
+
+        <!-- 3. Severe Bleeding -->
+        <div style="margin-top: 12px; padding: 14px; background: var(--bg-surface-elevated); border-radius: var(--radius-md);">
+          <h4 style="font-size: 0.95rem; color: #EF4444; margin-bottom: 4px;" data-i18n="bleedingTitle">
+            Severe Bleeding Protocol
+          </h4>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);" data-i18n="bleedingDesc">
+            Apply firm, continuous direct pressure with a clean cloth. Do not remove soaked cloths, add more.
+          </p>
+        </div>
+
+        <!-- 4. Burns Treatment -->
+        <div style="margin-top: 12px; padding: 14px; background: var(--bg-surface-elevated); border-radius: var(--radius-md);">
+          <h4 style="font-size: 0.95rem; color: #10B981; margin-bottom: 4px;" data-i18n="burnsTitle">
+            Burns Treatment
+          </h4>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);" data-i18n="burnsDesc">
+            Cool with clean running tap water for 10-20 mins. Never apply ice, butter, or paste.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Application Logic Modules -->
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/triage.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/sos.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
